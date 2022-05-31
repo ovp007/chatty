@@ -2,6 +2,7 @@ package com.milanalbert.chatty.advice;
 
 import com.milanalbert.chatty.dtos.ErrorResponseDto;
 import com.milanalbert.chatty.exeptions.EmptyRequestBodyException;
+import com.milanalbert.chatty.exeptions.InvalidLoginInformationException;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,5 +22,12 @@ public class ControllerExceptionHandler {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto emptyRequestBodyException() {
     return new ErrorResponseDto(environment.getProperty("chatty.config.error.empty.request"));
+  }
+
+  @ExceptionHandler(InvalidLoginInformationException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ErrorResponseDto invalidLoginInformationException() {
+    return new ErrorResponseDto(
+        environment.getProperty("chatty.config.error.invalid.login.request"));
   }
 }

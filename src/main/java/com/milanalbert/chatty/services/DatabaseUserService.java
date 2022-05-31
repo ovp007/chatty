@@ -1,12 +1,20 @@
 package com.milanalbert.chatty.services;
 
+import com.milanalbert.chatty.dtos.LoginRequestDto;
 import com.milanalbert.chatty.dtos.RegisterRequestDto;
 import com.milanalbert.chatty.dtos.StatusResponseDto;
+import com.milanalbert.chatty.dtos.TokenResponseDto;
 import com.milanalbert.chatty.exeptions.*;
 import com.milanalbert.chatty.models.AppUser;
 import com.milanalbert.chatty.repositories.UserRepository;
+import com.milanalbert.chatty.utils.JwtUtil;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -14,9 +22,19 @@ import org.springframework.stereotype.Service;
 public class DatabaseUserService implements UserService {
 
   private final UserRepository userRepository;
+  private final AuthenticationManager authenticationManager;
+  private final PasswordEncoder passwordEncoder;
+  private final JwtUtil jwtUtil;
 
-  public DatabaseUserService(UserRepository userRepository) {
+  public DatabaseUserService(
+      UserRepository userRepository,
+      AuthenticationManager authenticationManager,
+      PasswordEncoder passwordEncoder,
+      JwtUtil jwtUtil) {
     this.userRepository = userRepository;
+    this.authenticationManager = authenticationManager;
+    this.passwordEncoder = passwordEncoder;
+    this.jwtUtil = jwtUtil;
   }
 
   @Override
@@ -41,8 +59,25 @@ public class DatabaseUserService implements UserService {
 
     userRepository.save(
         new AppUser(
-            registerRequestDto.username, registerRequestDto.email, registerRequestDto.password));
+            registerRequestDto.username,
+            registerRequestDto.email,
+            passwordEncoder.encode(registerRequestDto.password)));
 
     return new StatusResponseDto("ok");
+  }
+
+  @Override
+  public TokenResponseDto login(LoginRequestDto loginRequestDto) {
+
+    Authentication authentication =
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                loginRequestDto.username, loginRequestDto.password));
+
+    User user = (User) authentication.getPrincipal();
+
+    final String jwtToken = jwtUtil.generateToken(user);
+
+    return new TokenResponseDto(jwtToken);
   }
 }
