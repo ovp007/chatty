@@ -78,6 +78,15 @@ public class DatabaseUserService implements UserService {
 
     final String jwtToken = jwtUtil.generateToken(user);
 
+    AppUser appUser = userRepository.getAppUserByUsername(user.getUsername());
+    appUser.setLogIn(true);
+    userRepository.save(appUser);
+
     return new TokenResponseDto(jwtToken);
+  }
+
+  @Override
+  public AppUser getCurrentUser(String token) {
+    return userRepository.getAppUserByUsername(jwtUtil.extractUsername(token.substring(7)));
   }
 }

@@ -55,4 +55,8 @@ public class AppUser {
   public Boolean getLogIn() {
     return logIn;
   }
+
+  public void setLogIn(Boolean logIn) {
+    this.logIn = logIn;
+  }
 }
