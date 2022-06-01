@@ -17,7 +17,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @RequestMapping("/rooms/")
 public class MessageRestController {
 
-  MessageService messageService;
+  private final MessageService messageService;
 
   public MessageRestController(MessageService messageService) {
     this.messageService = messageService;
