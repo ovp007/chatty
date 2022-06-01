@@ -69,6 +69,10 @@ public class DatabaseChatRoomService implements ChatRoomService {
     if (!chatRoomRepository.existsByIdAndOwnerUsername(id, username))
       throw new UnauthorizedToDeleteException();
 
+    ChatRoom chatRoom = chatRoomRepository.getById(id);
+
+    chatRoomRepository.delete(chatRoom);
+
     return new StatusResponseDto("ok");
   }
 }
