@@ -5,7 +5,7 @@ import com.milanalbert.chatty.dtos.MessageResponseDto;
 import com.milanalbert.chatty.dtos.StatusResponseDto;
 import com.milanalbert.chatty.exeptions.EmptyRequestBodyException;
 import com.milanalbert.chatty.exeptions.InvalidIdException;
-import com.milanalbert.chatty.exeptions.MessageTestIsMissingException;
+import com.milanalbert.chatty.exeptions.MessageTextIsMissingException;
 import com.milanalbert.chatty.exeptions.UnauthorizedToDeleteMessageException;
 import com.milanalbert.chatty.models.AppUser;
 import com.milanalbert.chatty.models.ChatRoom;
@@ -63,7 +63,7 @@ public class DatabaseMessageService implements MessageService {
     if (!chatRoomRepository.existsById(id)) throw new InvalidIdException();
 
     if (requestDto.text == null || requestDto.text.isEmpty())
-      throw new MessageTestIsMissingException();
+      throw new MessageTextIsMissingException();
 
     AppUser user = userService.getCurrentUser(token);
     System.out.println(user.getId());

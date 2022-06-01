@@ -63,7 +63,7 @@ public class ControllerExceptionHandler {
         environment.getProperty("chatty.config.error.chat.room.name.already.taken"));
   }
 
-  @ExceptionHandler(MessageTestIsMissingException.class)
+  @ExceptionHandler(MessageTextIsMissingException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto messageTestIsMissingException() {
     return new ErrorResponseDto(
