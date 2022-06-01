@@ -22,7 +22,7 @@ public class AppUser {
 
   @NonNull private String password;
 
-  private Boolean logIn;
+  private Boolean isLogIn;
 
   public AppUser() {}
 
@@ -30,7 +30,7 @@ public class AppUser {
     this.username = username;
     this.email = email;
     this.password = password;
-    this.logIn = false;
+    this.isLogIn = false;
   }
 
   public Long getId() {
@@ -53,10 +53,10 @@ public class AppUser {
   }
 
   public Boolean getLogIn() {
-    return logIn;
+    return isLogIn;
   }
 
   public void setLogIn(Boolean logIn) {
-    this.logIn = logIn;
+    isLogIn = logIn;
   }
 }
