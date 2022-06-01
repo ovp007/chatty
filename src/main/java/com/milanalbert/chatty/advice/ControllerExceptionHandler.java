@@ -34,34 +34,46 @@ public class ControllerExceptionHandler {
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto unauthorizedToDeleteException() {
     return new ErrorResponseDto(
-            environment.getProperty("chatty.config.error.unauthorized.to.delete"));
+        environment.getProperty("chatty.config.error.unauthorized.to.delete"));
   }
 
   @ExceptionHandler(ChatRoomNotExistException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto chatRoomNotExistException() {
-    return new ErrorResponseDto(
-            environment.getProperty("chatty.config.error.chat.room.not.exist"));
+    return new ErrorResponseDto(environment.getProperty("chatty.config.error.chat.room.not.exist"));
   }
 
   @ExceptionHandler(InvalidIdException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto invalidIdException() {
-    return new ErrorResponseDto(
-            environment.getProperty("chatty.config.error.invalid.id"));
+    return new ErrorResponseDto(environment.getProperty("chatty.config.error.invalid.id"));
   }
 
   @ExceptionHandler(ChatRoomNameIsMissingException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto chatRoomNameIsMissingException() {
     return new ErrorResponseDto(
-            environment.getProperty("chatty.config.error.chat.room.name.is.missing"));
+        environment.getProperty("chatty.config.error.chat.room.name.is.missing"));
   }
 
   @ExceptionHandler(ChatRoomNameAlreadyTakenException.class)
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)
   public ErrorResponseDto chatRoomNameAlreadyTakenException() {
     return new ErrorResponseDto(
-            environment.getProperty("chatty.config.error.chat.room.name.already.taken"));
+        environment.getProperty("chatty.config.error.chat.room.name.already.taken"));
+  }
+
+  @ExceptionHandler(MessageTestIsMissingException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ErrorResponseDto messageTestIsMissingException() {
+    return new ErrorResponseDto(
+        environment.getProperty("chatty.config.error.message.text.is.missing"));
+  }
+
+  @ExceptionHandler(UnauthorizedToDeleteMessageException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ErrorResponseDto unauthorizedToDeleteMessageException() {
+    return new ErrorResponseDto(
+        environment.getProperty("chatty.config.error.unauthorize.to.delete.message"));
   }
 }

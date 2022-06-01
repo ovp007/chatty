@@ -29,6 +29,7 @@ public class Message {
 
   public Message(String text, AppUser appUser, ChatRoom chatRoom) {
     this.text = text;
+    this.postedBy = appUser;
     this.isDeleted = false;
     this.chatRoom = chatRoom;
     this.createdAt = LocalDateTime.now();
