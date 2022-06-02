@@ -22,7 +22,7 @@ public class RegisterRestController {
 
   @PostMapping("/register")
   public ResponseEntity<? extends ResponseDto> register(
-      @RequestBody RegisterRequestDto registerRequestDto) {
+      @RequestBody(required = false) RegisterRequestDto registerRequestDto) {
 
     StatusResponseDto statusResponseDto = userService.store(registerRequestDto);
 

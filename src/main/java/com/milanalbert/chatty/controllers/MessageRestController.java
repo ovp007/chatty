@@ -35,7 +35,7 @@ public class MessageRestController {
   public ResponseEntity<? extends ResponseDto> store(
       @PathVariable Long id,
       @RequestHeader(AUTHORIZATION) String token,
-      @RequestBody CreateMessageRequestDto requestDto) {
+      @RequestBody(required = false) CreateMessageRequestDto requestDto) {
 
     StatusResponseDto statusResponseDto = messageService.store(requestDto, token, id);
 

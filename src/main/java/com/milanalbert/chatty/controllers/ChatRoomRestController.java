@@ -34,7 +34,7 @@ public class ChatRoomRestController {
   @PostMapping("")
   public ResponseEntity<? extends ResponseDto> store(
       @RequestHeader(AUTHORIZATION) String token,
-      @RequestBody CreateChatRoomRequestDto requestDto) {
+      @RequestBody(required = false) CreateChatRoomRequestDto requestDto) {
 
     StatusResponseDto statusResponseDto = chatRoomService.store(token, requestDto);
 
